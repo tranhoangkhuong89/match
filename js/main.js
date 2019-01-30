@@ -475,6 +475,15 @@ function renderQuery(query) {
            if(i==5){
                tr.append('<td><span title="' + htmlEncode(s[i]) + '"><a target="_blank" rel="noopener noreferrer" href="http://data.bongdalu.com/liveodds/24_'+htmlEncode(s[i])+'.html">bongdalu</a></span></td>');
            }
+           else if(i==1){
+             var dt=htmlEncode(s[i]);
+             var tt=dt.split(' ')[1];
+             var yyyy=dt.split('-')[0];
+             var mm=dt.split('-')[1];
+             var dd=dt.split(' ')[0].split('-')[2];
+             var ndt=dd+"/"+mm+"/"+yyyy+" "+tt;
+             tr.append('<td><span title="' + ndt + '">' + ndt + '</span></td>');
+           }
            else
             tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
 
