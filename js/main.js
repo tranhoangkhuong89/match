@@ -448,12 +448,12 @@ function renderQuery(query) {
         if (!addedColums) {
             addedColums = true;
 		if(tableName=="tblmatch"){
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">league</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">time</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">home</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">score</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">away</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string"></span></th>');
+		   thead.append('<td><span data-toggle="tooltip" data-placement="top" title="string">league</span></td>');
+		   thead.append('<td><span data-toggle="tooltip" data-placement="top" title="string">time</span></td>');
+		   thead.append('<td><span data-toggle="tooltip" data-placement="top" title="string">home</span></td>');
+		   thead.append('<td><span data-toggle="tooltip" data-placement="top" title="string">score</span></td>');
+		   thead.append('<td><span data-toggle="tooltip" data-placement="top" title="string">away</span></td>');
+		   thead.append('<td><span data-toggle="tooltip" data-placement="top" title="string"></span></td>');
 		   }
 		   else{
 		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">stt</span></th>');
@@ -469,7 +469,7 @@ function renderQuery(query) {
             }*/
         }
 
-        var tr = $('<tr>');
+        var tr = $('<tr align="center">');
         var s = sel.get();
         for (var i = 0; i < s.length; i++) {
            if(i==5){
@@ -483,6 +483,23 @@ function renderQuery(query) {
              var dd=dt.split(' ')[0].split('-')[2];
              var ndt=dd+"/"+mm+"/"+yyyy+" "+tt;
              tr.append('<td><span title="' + ndt + '">' + ndt + '</span></td>');
+           }
+           else if(i==0){
+             switch(s[i]){
+               case "ENG1":
+                  tr.append('<td style="background-color:#FF3333;color:White;"><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
+                  break;
+               case "ITA1":
+                  tr.append('<td style="background-color:#0088FF;color:White;"><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
+                  break;
+                case "SPA1":
+                  tr.append('<td style="background-color:#006633;color:White;"><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
+                  break;
+                case "GER1":
+                    tr.append('<td style="background-color:#990099;color:White;"><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
+                    break;
+             }
+
            }
            else
             tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
