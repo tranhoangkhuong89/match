@@ -68,10 +68,10 @@ function renderQueryTK(query) {
 /////////////////////////////////
 function executeMon() {
 
-    renderQueryBo();
-    renderQueryMi()
-    renderQueryPizza();
-    renderQueryKhoang();
+    //renderQueryBo();
+    //renderQueryMi()
+    //renderQueryPizza();
+    //renderQueryKhoang();
 
 }
 

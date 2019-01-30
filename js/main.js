@@ -112,18 +112,17 @@ var loadUrlDB = $.urlParam('url');
 var now = new Date();
 var dt=now.toLocaleDateString('en-GB').split('/').join('-');
 
-khoitao(dt);
-
-function khoitao(dt){
+//khoitao(dt);
+//setIsLoading(true);
+resetTableList();
+$("#output-box").fadeIn();
+function khoitao(){
   if (loadUrlDB == null) {
       setIsLoading(true);
      //////////////
 
-    if($("txtngay").text()==""){
-    $("txtngay").text(dt);
-    }
   	var dbx = new Dropbox.Dropbox({ accessToken: 'jNfuqaYoI3AAAAAAAAAAqvr96aupCnGYWhhPaL2m6A0r6UxWV4nBF8XwARehWV25', fetch: fetch });
-  	var ur='/Dropbox/DotNetApi/'+dt+'_resDB.db';
+  	var ur='/Dropbox/DotNetApi/match/cpMatch.db';
 
   	dbx.filesDownload({path: ur})
   		.then(function(response) {
@@ -174,7 +173,7 @@ function loadDB(arrayBuffer,fromdate,todate) {
 
         while (tables.step()) {
             var rowObj = tables.getAsObject();
-            var name = "order";//var name = rowObj.name;
+            var name = "tblmatch";//var name = rowObj.name;
 
             if (firstTableName === null) {
                 firstTableName = name;
@@ -289,7 +288,12 @@ function dropzoneClick() {
 
 function doDefaultSelect(name,fromdate,todate) {
   var defaultSelect;
-    defaultSelect = "SELECT * FROM '" + name + "' order by starttime desc LIMIT 0,100";
+
+  var hdc=$("#hdc").val();
+  var oddHome=$("#oddHome").val();
+    var oddAway=$("#oddAway").val();
+
+    defaultSelect = "SELECT m.league,m.time,m.home,m.score,m.away,m.id_match FROM tblmatch m inner join tbl12bet b on m.id_match=b.id_match where b.hdc=='"+hdc+"' and (b.odd_home>="+oddHome.split(',')[0]+" and b.odd_home<="+oddHome.split(',')[1]+") and (b.odd_away>="+oddAway.split(',')[0]+" and b.odd_away<="+oddAway.split(',')[1]+") order by time desc";
 
     editor.setValue(defaultSelect, -1);
     renderQuery(defaultSelect);
@@ -443,13 +447,13 @@ function renderQuery(query) {
     while (sel.step()) {
         if (!addedColums) {
             addedColums = true;
-		if(tableName=="order"){
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">stt</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">table</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">price</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">in</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">out</span></th>');
-		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">check</span></th>');
+		if(tableName=="tblmatch"){
+		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">league</span></th>');
+		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">time</span></th>');
+		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">home</span></th>');
+		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">score</span></th>');
+		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">away</span></th>');
+		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string"></span></th>');
 		   }
 		   else{
 		   thead.append('<th><span data-toggle="tooltip" data-placement="top" title="string">stt</span></th>');
@@ -468,51 +472,12 @@ function renderQuery(query) {
         var tr = $('<tr>');
         var s = sel.get();
         for (var i = 0; i < s.length; i++) {
-           if(i==0){
-               tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + stt + '</span></td>');
+           if(i==5){
+               tr.append('<td><span title="' + htmlEncode(s[i]) + '"><a target="_blank" rel="noopener noreferrer" href="http://data.bongdalu.com/liveodds/24_'+htmlEncode(s[i])+'.html">bongdalu</a></span></td>');
            }
-           else if(tableName=="order"){
-              if(i==2){
-                 total+=s[i];
-                 var t=s[i];
-                 tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(Number(t).toLocaleString()) + '</span></td>');
-              }
-              else{
-                 if(i==3 || i==4){
-                     var bb="";
-                     if(s[i]!=null){
-                        bb=s[i].toString().split(' ')[1];
-                     }
-                     tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(bb) + '</span></td>');
-                 }
-                 else if(i==5){
-                  if(s[i]=="1"){
-                     tr.append('<td><span style="background-color:green" title="' + htmlEncode(s[i]) + '">_____</span></td>');
-                  }
-                    else{
-                     tr.append('<td><span style="background-color:red" title="' + htmlEncode(s[i]) + '">_____</span></td>');
-                    }
-                 }
-                 else
-                  tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
-              }
-           }
-            else{
-               if(i==2){
-                  tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + Number(s[i]).toLocaleString() + '</span></td>');
-               }
-		else if(i==4){
-			var price=s[2];
-			var sl=s[3]
-			var tt=price*sl;
-			total+=tt;
-                  tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + Number(tt).toLocaleString() + '</span></td>');
-               }
-               else{
-                  tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
-               }
+           else
+            tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
 
-            }
         }
         tbody.append(tr);
        stt++;
