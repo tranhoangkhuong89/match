@@ -505,9 +505,9 @@ function renderQuery(query) {
              tr.append('<td><span title="' + htmlEncode(s[i]) + '">'+ htmlEncode(s[i])+'</span></td>');
            }
            else if(i==2)
-            tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) +'<font color="blue"> '  + htmlEncode(s[6])+'</font></span></td>');
+            tr.append('<td><span title="' + htmlEncode(s[i]) + '"><font color="blue">'  + htmlEncode(s[6])+' </font>'+ htmlEncode(s[i]) +'</span></td>');
             else if(i==4)
-             tr.append('<td><span title="' + htmlEncode(s[i]) + '"><font color="blue">'  + htmlEncode(s[7])+' </font>' + htmlEncode(s[i]) +'</span></td>');
+             tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) +'<font color="blue"> '  + htmlEncode(s[7])+'</font></span></td>');
         }
         tbody.append(tr);
        stt++;
