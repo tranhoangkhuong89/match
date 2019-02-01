@@ -293,7 +293,7 @@ function doDefaultSelect(name,fromdate,todate) {
   var oddHome=$("#oddHome").val();
     var oddAway=$("#oddAway").val();
 
-    defaultSelect = "SELECT m.league,m.time,m.home,m.score,m.away,m.id_match FROM tblmatch m inner join tbl12bet b on m.id_match=b.id_match where b.hdc=='"+hdc+"' and (b.odd_home>="+oddHome.split(',')[0]+" and b.odd_home<="+oddHome.split(',')[1]+") and (b.odd_away>="+oddAway.split(',')[0]+" and b.odd_away<="+oddAway.split(',')[1]+") order by time desc";
+    defaultSelect = "SELECT m.league,m.time,m.home,m.score,m.away,m.id_match,b.odd_home,b.odd_away FROM tblmatch m inner join tbl12bet b on m.id_match=b.id_match where b.hdc=='"+hdc+"' and (b.odd_home>="+oddHome.split(',')[0]+" and b.odd_home<="+oddHome.split(',')[1]+") and (b.odd_away>="+oddAway.split(',')[0]+" and b.odd_away<="+oddAway.split(',')[1]+") order by time desc";
 
     editor.setValue(defaultSelect, -1);
     renderQuery(defaultSelect);
@@ -501,9 +501,13 @@ function renderQuery(query) {
              }
 
            }
-           else
-            tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
-
+           else if(i==3){
+             tr.append('<td><span title="' + htmlEncode(s[i]) + '">'+ htmlEncode(s[i])+'</span></td>');
+           }
+           else if(i==2)
+            tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) +'<font color="blue"> '  + htmlEncode(s[6])+'</font></span></td>');
+            else if(i==4)
+             tr.append('<td><span title="' + htmlEncode(s[i]) + '"><font color="blue">'  + htmlEncode(s[7])+' </font>' + htmlEncode(s[i]) +'</span></td>');
         }
         tbody.append(tr);
        stt++;
