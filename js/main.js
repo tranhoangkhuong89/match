@@ -293,7 +293,15 @@ function doDefaultSelect(name,fromdate,todate) {
   var oddHome=$("#oddHome").val();
     var oddAway=$("#oddAway").val();
 
-    defaultSelect = "SELECT m.league,m.time,m.home,m.score,m.away,m.id_match,b.odd_home,b.odd_away FROM tblmatch m inner join tbl12bet b on m.id_match=b.id_match where b.hdc=='"+hdc+"' and (b.odd_home>="+oddHome.split(',')[0]+" and b.odd_home<="+oddHome.split(',')[1]+") and (b.odd_away>="+oddAway.split(',')[0]+" and b.odd_away<="+oddAway.split(',')[1]+") order by time desc";
+    var hdc_l=$("#hdc_l").val();
+    var oddHome_l=$("#oddHome_l").val();
+      var oddAway_l=$("#oddAway_l").val();
+
+      if(hdc_l=="" && oddHome_l=="" && oddAway_l=="")
+        defaultSelect = "SELECT m.league,m.time,m.home,m.score,m.away,m.id_match,b.odd_home_f,b.odd_away_f,b.odd_home_l,b.odd_away_l,b.hdc_l FROM tblmatch m inner join tbl12bet b on m.id_match=b.id_match where b.hdc_f=='"+hdc+"' and (b.odd_home_f>="+oddHome.split(',')[0]+" and b.odd_home_f<="+oddHome.split(',')[1]+") and (b.odd_away_f>="+oddAway.split(',')[0]+" and b.odd_away_f<="+oddAway.split(',')[1]+") order by time desc";
+        else {
+          defaultSelect = "SELECT m.league,m.time,m.home,m.score,m.away,m.id_match,b.odd_home_f,b.odd_away_f,b.odd_home_l,b.odd_away_l,b.hdc_l FROM tblmatch m inner join tbl12bet b on m.id_match=b.id_match where b.hdc_f=='"+hdc+"' and (b.odd_home_f>="+oddHome.split(',')[0]+" and b.odd_home_f<="+oddHome.split(',')[1]+") and (b.odd_away_f>="+oddAway.split(',')[0]+" and b.odd_away_f<="+oddAway.split(',')[1]+") and b.hdc_l=='"+hdc_l+"' and (b.odd_home_l>="+oddHome_l.split(',')[0]+" and b.odd_home_l<="+oddHome_l.split(',')[1]+") and (b.odd_away_l>="+oddAway_l.split(',')[0]+" and b.odd_away_l<="+oddAway_l.split(',')[1]+") order by time desc";
+        }
 
     editor.setValue(defaultSelect, -1);
     renderQuery(defaultSelect);
@@ -502,12 +510,12 @@ function renderQuery(query) {
 
            }
            else if(i==3){
-             tr.append('<td><span title="' + htmlEncode(s[i]) + '">'+ htmlEncode(s[i])+'</span></td>');
+             tr.append('<td><span title="' + htmlEncode(s[i]) + '">'+ htmlEncode(s[i])+'</span><br><font color="red">'+htmlEncode(s[10])+'</font></td>');
            }
            else if(i==2)
-            tr.append('<td><span title="' + htmlEncode(s[i]) + '"><font color="blue">'  + htmlEncode(s[6])+' </font>'+ htmlEncode(s[i]) +'</span></td>');
+            tr.append('<td><span title="' + htmlEncode(s[i]) + '"><font color="blue">'  + htmlEncode(s[6])+' </font>'+ htmlEncode(s[i]) +'<br><font color="red">'  + htmlEncode(s[8])+' </font></span></td>');
             else if(i==4)
-             tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) +'<font color="blue"> '  + htmlEncode(s[7])+'</font></span></td>');
+             tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) +'<font color="blue"> '  + htmlEncode(s[7])+'</font><br><font color="red"> '  + htmlEncode(s[9])+'</font></span></td>');
         }
         tbody.append(tr);
        stt++;
