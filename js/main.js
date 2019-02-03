@@ -481,7 +481,7 @@ function renderQuery(query) {
         var s = sel.get();
         for (var i = 0; i < s.length; i++) {
            if(i==5){
-               tr.append('<td><span title="' + htmlEncode(s[i]) + '"><a target="_blank" rel="noopener noreferrer" href="http://data.bongdalu.com/liveodds/24_'+htmlEncode(s[i])+'.html">$</a></span>    <span title="' + htmlEncode(s[i]) + '"><a target="_blank" rel="noopener noreferrer" href="http://www.bongdalu.com/analysis/'+htmlEncode(s[i])+'.html">@</a></span></td>');
+               tr.append('<td><span title="Live odds"><a target="_blank" rel="noopener noreferrer" href="http://data.bongdalu.com/liveodds/24_'+htmlEncode(s[i])+'.html">$</a></span>    <span title="Analysis"><a target="_blank" rel="noopener noreferrer" href="http://www.bongdalu.com/analysis/'+htmlEncode(s[i])+'.html">@</a></span></td>');
            }
            else if(i==1){
              var dt=htmlEncode(s[i]);
