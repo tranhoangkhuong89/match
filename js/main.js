@@ -506,6 +506,13 @@ function renderQuery(query) {
                 case "GER1":
                     tr.append('<td style="background-color:#990099;color:White;"><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
                     break;
+                case "AUS1":
+                    tr.append('<td style="background-color:#FF7000;color:White;"><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
+                    break;
+                case "JPN1":
+                    tr.append('<td style="background-color:#009900;color:White;"><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
+                    break;
+
              }
 
            }
